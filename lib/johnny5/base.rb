@@ -41,7 +41,7 @@ module Johnny5
 
 			# removes images that have local paths, tried including imgur (uses data-src)
 			nokogiri_object.css('img').each do |image|
-				image.remove unless image.attributes['src'].value.match(/http/) || image.attributes['data-src'].value.match(/http/)
+				image.remove if !image.attributes['src'].value.match(/http/) || (image.attributes['data-src'] && !image.attributes['data-src'].value.match(/http/))
 			end
 
 			return nokogiri_object
