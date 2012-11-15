@@ -14,10 +14,13 @@ module Johnny5
 				# return an image tag
 			elsif @url.to_s.match(/(avi|mov|mpeg|flv)$/) # this is a movie
 				# this is a movie, put it in an iframe or something...
+			elsif @url.to_s.match(/reddit.com/) # this is a link from reddit
+				# do something different, don't trim unwanted tags as that removes all content... 
 			else
 				# look for content
 				html = Nokogiri::HTML(open(@url))
 				trim_unwanted_tags(html)
+				get_main_content(html)
 				return html.to_s
 			end
 		end
@@ -49,7 +52,19 @@ module Johnny5
 
 		def get_main_content(nokogiri_object)
 			# here we want to look at the biggest div and take its largest container
+			# might want to switch this around with trim_unwanted_tags
 			# somewhere here we also want to remove any borders...
+			count = nokogiri_object.css('div').count.to_int
+			start_count = 0
+			while start_count < count
+				unless count == 0 
+					nokogiri_object.css('div')[count].remove unless nokogiri_object.css('div')[count].inner_text.scan(/\w+/).size > nokogiri_object.css('div')[count - 1].inner_text.scan(/\w+/).size
+				else
+					nokogiri_object.css('div')[count].remove if nokogiri_object.css('div')[count].inner_text.scan(/\w+/).size < 25
+				end
+				count = count + 1
+			end
+			return nokogiri_object
 		end
 
 		def get_title(nokogiri_object)
