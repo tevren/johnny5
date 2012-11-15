@@ -35,7 +35,7 @@ module Johnny5
 			end
 
 			# removes css/js that have local paths
-			html.css('link').each do |header_object|
+			nokogiri_object.css('link').each do |header_object|
 				header_object.remove if !header_object.attributes['href'].value.match(/http/)
 			end
 
@@ -49,6 +49,7 @@ module Johnny5
 
 		def get_main_content(nokogiri_object)
 			# here we want to look at the biggest div and take its largest container
+			# somewhere here we also want to remove any borders...
 		end
 
 		def get_title(nokogiri_object)
