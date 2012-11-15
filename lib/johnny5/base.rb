@@ -57,7 +57,7 @@ module Johnny5
 			count = nokogiri_object.css('div').count
 			start_count = 0
 			while start_count < count
-				unless count == 0 
+				unless count = 0 
 					nokogiri_object.css('div')[count].remove unless nokogiri_object.css('div')[count].inner_text.scan(/\w+/).size > nokogiri_object.css('div')[count - 1].inner_text.scan(/\w+/).size
 				else
 					nokogiri_object.css('div')[count].remove if nokogiri_object.css('div')[count].inner_text.scan(/\w+/).size < 25
