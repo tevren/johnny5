@@ -54,7 +54,7 @@ module Johnny5
 			# here we want to look at the biggest div and take its largest container
 			# might want to switch this around with trim_unwanted_tags
 			# somewhere here we also want to remove any borders...
-			count = nokogiri_object.css('div').count.to_int
+			count = nokogiri_object.css('div').count
 			start_count = 0
 			while start_count < count
 				unless count == 0 
