@@ -19,9 +19,10 @@ module Johnny5
 			else
 				# look for content
 				html = Nokogiri::HTML(open(@url))
-				trim_unwanted_tags(html)
-#				get_main_content(html)
-				return html.to_s
+				body = html.css('body')
+				trim_unwanted_tags(body)
+				get_main_content(body)
+				return body.to_s
 			end
 		end
 
