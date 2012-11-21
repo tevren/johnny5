@@ -20,7 +20,7 @@ module Johnny5
 				# look for content
 				html = Nokogiri::HTML(open(@url))
 				trim_unwanted_tags(html)
-				get_main_content(html)
+#				get_main_content(html)
 				return html.to_s
 			end
 		end
