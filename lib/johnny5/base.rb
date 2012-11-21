@@ -59,11 +59,12 @@ module Johnny5
 			## bad way to go about it:
 			## what we should be doing is finding the largest div and then either returning the parent or that div. 
 			nokogiri_object.css('div').each do |div|
-				div_hash[div] => div.inner_text.scan(/\w+/).size
+				div_hash[div] = div.inner_text.scan(/\w+/).size
 #				div.remove if div.inner_text.scan(/\w+/).size < 25
 			end
 			div_hash.sort_by{|key,value| value}
-			return div_hash.last.key
+			largest_div = div_hash.keys.first
+			return largest_div
 		end
 
 		def get_title(nokogiri_object)
