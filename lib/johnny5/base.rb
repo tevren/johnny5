@@ -54,10 +54,16 @@ module Johnny5
 			# here we want to look at the biggest div and take its largest container
 			# might want to switch this around with trim_unwanted_tags
 			# somewhere here we also want to remove any 
+			div_hash = Hash.new
+
+			## bad way to go about it:
+			## what we should be doing is finding the largest div and then either returning the parent or that div. 
 			nokogiri_object.css('div').each do |div|
-				div.remove if div.inner_text.scan(/\w+/).size < 25
+				div_hash[div] => div.inner_text.scan(/\w+/).size
+#				div.remove if div.inner_text.scan(/\w+/).size < 25
 			end
-			return nokogiri_object
+			div_hash.sort_by{|key,value| value}
+			return div_hash.last.key
 		end
 
 		def get_title(nokogiri_object)
